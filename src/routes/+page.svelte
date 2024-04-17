@@ -66,13 +66,18 @@
 	};
 </script>
 
+<nav>
+	<h1 data-test="home-label">Calculator</h1>
+</nav>
+
 <main>
 	<div class="calculator">
-		<div class="results">{display}</div>
+		<div class="results" data-test="result-field">{display}</div>
 		<div class="digits">
 			<div class="numbers">
 				<button
 					class="btn btn-xlg"
+					data-test="button-c"
 					on:click={() => {
 						clearResult();
 					}}>C</button
@@ -80,6 +85,7 @@
 				{#each numbers as number (number)}
 					<button
 						class={`btn ${number === '0' ? 'btn-lg' : null}`}
+						data-test={`button-${number}`}
 						on:click={() => {
 							handleNumberClick(number);
 						}}>{number}</button
@@ -90,6 +96,7 @@
 				{#each operations as operator (operator)}
 					<button
 						class={`btn ${operator === selectedOperation ? 'btn-silver' : 'btn-orange'}`}
+						data-test={`operator-${operator}`}
 						on:click={() => {
 							handleOperationClick(operator);
 						}}>{operator}</button
@@ -101,14 +108,25 @@
 </main>
 
 <style>
+	h1 {
+		margin: 0;
+	}
+	nav {
+		height: 5rem;
+		text-align: center;
+		font-size: 3rem;
+		color: rgb(77, 71, 64);
+	}
 	main {
-		width: 100vw;
-		height: 100vh;
-		display: flex;
 		align-items: center;
-		justify-content: center;
+		width: 100vw;
+		height: 90vh;
 	}
 	.calculator {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 		background-color: rgb(28, 28, 28);
 		width: 240px;
 		padding: 15px;
